@@ -43,7 +43,7 @@ namespace Capture_Screenshot
             //while (browser.Document == null || browser.Document.Body == null)
             //   Application.DoEvents();
 
-            wait(3000); //wait 3 second to load full content
+            wait(5000); //wait 5 second to load full content
 
             //Resize the webbrowser object to the same size as the
             //webpage
