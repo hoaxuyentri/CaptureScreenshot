@@ -16,7 +16,7 @@ namespace Capture_Screenshot
         [STAThread]
         static void Main()
         {
-            string filename = "C:\\Luan data\\Fuel price " + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".jpg";
+            string filename = "D:\\Temp\\Fuel_Rate_Capture_Screenshot\\Fuel price " + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".jpg";
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             WebsiteScreenshot("https://www.petrolimex.com.vn/", filename);
@@ -40,8 +40,10 @@ namespace Capture_Screenshot
             browser.Navigate(new Uri(url));
 
             //Wait until the page is fully loaded
-            while (browser.Document == null || browser.Document.Body == null)
-                Application.DoEvents();
+            //while (browser.Document == null || browser.Document.Body == null)
+            //   Application.DoEvents();
+
+            wait(3000); //wait 3 second to load full content
 
             //Resize the webbrowser object to the same size as the
             //webpage
@@ -59,6 +61,29 @@ namespace Capture_Screenshot
 
             //Save the bitmap at the given filepath
             bmp.Save(file, ImageFormat.Jpeg);
+        }
+
+        static void wait(int milliseconds)
+        {
+            var timer1 = new System.Windows.Forms.Timer();
+            if (milliseconds == 0 || milliseconds < 0) return;
+
+            // Console.WriteLine("start wait timer");
+            timer1.Interval = milliseconds;
+            timer1.Enabled = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+                // Console.WriteLine("stop wait timer");
+            };
+
+            while (timer1.Enabled)
+            {
+                Application.DoEvents();
+            }
         }
     }
 
